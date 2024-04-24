@@ -5,7 +5,7 @@ with open('requirements.txt', 'r') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='rvc',
+    name='rvclib',
     version='0.1',
     description='rvc package',
     author='RVC people',
