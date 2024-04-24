@@ -3,5 +3,5 @@ __pycache__
 /TEMP
 *.pyd
 hubert_base.pt
-/logs
+/rvc_lib/logs
 .venv
