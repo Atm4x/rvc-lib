@@ -8,7 +8,7 @@ with open('rvc_lib/requirements.txt', 'r') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='rvc_lib',
+    name='rvc',
     version='0.1',
     description='rvc package',
     author='RVC people',
