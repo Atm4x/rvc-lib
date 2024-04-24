@@ -1,10 +1,11 @@
 from setuptools import setup, find_packages
 import glob
+import io
 
 scripts_folder = glob.glob('rvc_lib/*.py')
 
 # Read the requirements.txt file
-with open('rvc_lib/requirements.txt', 'r') as f:
+with io.open('rvc_lib/requirements.txt', encoding='utf-8') as f:
     requirements = f.read().splitlines()
 
 setup(
