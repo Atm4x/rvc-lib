@@ -15,7 +15,7 @@ setup(
     packages=find_packages(),
     install_requires=requirements,
     package_data={
-        'lib.uvr5_pack.lib_v5.modelparams': ['*.json']
+        'rvc_lib.lib.uvr5_pack.lib_v5.modelparams': ['*.json']
     },
     scripts=scripts_folder,
 )
