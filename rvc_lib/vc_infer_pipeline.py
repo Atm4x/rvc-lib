@@ -50,6 +50,8 @@ def change_rms(data1, sr1, data2, sr2, rate):  # 1是输入音频，2是输出�
     return data2
 
 
+model_rmvpe_cached = None
+
 class VC(object):
     def __init__(self, tgt_sr, config):
         self.x_pad, self.x_query, self.x_center, self.x_max, self.is_half = (
@@ -129,12 +131,15 @@ class VC(object):
             f0 = f0[0].cpu().numpy()
         elif f0_method == "rmvpe":
             if hasattr(self, "model_rmvpe") == False:
-                from lib.rmvpe import RMVPE
+                if model_rmvpe_cached is None:
+                    from lib.rmvpe import RMVPE
 
-                print("loading rmvpe model")
-                self.model_rmvpe = RMVPE(
-                    "rmvpe.pt", is_half=self.is_half, device=self.device
-                )
+                    print("loading rmvpe model")
+                    self.model_rmvpe = RMVPE(
+                        "rmvpe.pt", is_half=self.is_half, device=self.device
+                    )
+                else:
+                    print("using cached rvmpe model")
             f0 = self.model_rmvpe.infer_from_audio(x, thred=0.03)
         f0 *= pow(2, f0_up_key / 12)
         # with open("test.txt","w")as f:f.write("\n".join([str(i)for i in f0.tolist()]))
