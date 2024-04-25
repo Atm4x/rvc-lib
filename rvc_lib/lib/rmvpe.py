@@ -325,12 +325,15 @@ class MelSpectrogram(torch.nn.Module):
         log_mel_spec = torch.log(torch.clamp(mel_output, min=self.clamp))
         return log_mel_spec
 
+ckpt = None
 
 class RMVPE:
     def __init__(self, model_path, is_half, device=None):
         self.resample_kernel = {}
+        global ckpt
         model = E2E(4, 1, (2, 2))
-        ckpt = torch.load(model_path, map_location="cpu")
+        if ckpt is None:
+            ckpt = torch.load(model_path, map_location="cpu")
         model.load_state_dict(ckpt)
         model.eval()
         if is_half == True:
