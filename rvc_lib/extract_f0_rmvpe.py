@@ -38,9 +38,10 @@ class FeatureInput(object):
         x = load_audio(path, self.fs)
         p_len = x.shape[0] // self.hop
         if f0_method == "rmvpe":
+            print("is loaded?")
             if hasattr(self, "model_rmvpe") == False:
                 from lib.rmvpe import RMVPE
-
+                print(self.model_rmvpe, "is not loaded")
                 print("loading rmvpe model")
                 self.model_rmvpe = RMVPE("rmvpe.pt", is_half=True, device="cuda")
             f0 = self.model_rmvpe.infer_from_audio(x, thred=0.03)
@@ -99,6 +100,7 @@ if __name__ == "__main__":
     # f = open("%s/log_extract_f0.log"%exp_dir, "w")
     printt(sys.argv)
     featureInput = FeatureInput()
+    print(featureInput)
     paths = []
     inp_root = "%s/1_16k_wavs" % (exp_dir)
     opt_root1 = "%s/2a_f0" % (exp_dir)
