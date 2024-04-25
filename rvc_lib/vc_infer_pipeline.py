@@ -131,6 +131,7 @@ class VC(object):
             f0 = f0[0].cpu().numpy()
         elif f0_method == "rmvpe":
             if hasattr(self, "model_rmvpe") == False:
+                global model_rmvpe_cached
                 if model_rmvpe_cached is None:
                     from lib.rmvpe import RMVPE
 
@@ -138,8 +139,10 @@ class VC(object):
                     self.model_rmvpe = RMVPE(
                         "rmvpe.pt", is_half=self.is_half, device=self.device
                     )
+                    model_rmvpe_cached = self.model_rmvpe
                 else:
                     print("using cached rvmpe model")
+                    self.model_rmvpe = model_rmvpe_cached
             f0 = self.model_rmvpe.infer_from_audio(x, thred=0.03)
         f0 *= pow(2, f0_up_key / 12)
         # with open("test.txt","w")as f:f.write("\n".join([str(i)for i in f0.tolist()]))
