@@ -436,6 +436,9 @@ class VC(object):
                     protect,
                 )[self.t_pad_tgt : -self.t_pad_tgt]
             )
+        
+        ix22+= 1
+        print('Times mount:', ix22)
         audio_opt = np.concatenate(audio_opt)
         if rms_mix_rate != 1:
             audio_opt = change_rms(audio, 16000, audio_opt, tgt_sr, rms_mix_rate)
